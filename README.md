@@ -72,7 +72,7 @@ Halvorsen attractor
 
 ![halvorsen](./images/halvorsen_0008.png)
 
-Or in 3D with [3d glasses needed](https://www.frisky.world/2021/11/when-you-create-3d-attractors-with.html):
+Or in 3D with [3d glasses needed](https://www.amazon.com/50-Pairs-Glasses-Anaglyph-Cardboard/dp/B07HK9Y6H3/):
 
 ![halvorsen](./images/01.png)
 
