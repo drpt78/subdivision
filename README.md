@@ -44,6 +44,6 @@ Chaotic attractor
 
 ![3d attractor](./images/04.png)
 
-This software is for eduction and is free (high school + universities).
+This software is for eduction purposes and is *free* forever (high school + universities).
 
-Picture suitable even for younger kids.
+Pictures are suitable even for younger kids. No parental guidance needed.
