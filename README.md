@@ -44,6 +44,8 @@ Chaotic attractor
 
 ![3d attractor](./images/04.png)
 
+# P.T. education license
+
 This software is for eduction purposes and is *free* forever (high school + universities).
 
 Pictures are suitable even for younger kids. No parental guidance needed.
