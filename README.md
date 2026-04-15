@@ -38,8 +38,12 @@ Chaotic attractor
 
 ![chaotic](./images/chaotic_0011.png)
 
-# Three Dimensions Black And White displaying of attractors on standard colour monitors
+# Three Dimensional Black And White displaying of attractors on standard two dimensional colour monitors
 
 [3d glasses needed](https://www.amazon.com/50-Pairs-Glasses-Anaglyph-Cardboard/dp/B07HK9Y6H3/):
 
 ![3d attractor](./images/04.png)
+
+This software is for eduction and is free (high school + universities).
+
+Picture suitable even for younger kids.
