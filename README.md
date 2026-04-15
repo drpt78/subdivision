@@ -48,4 +48,4 @@ Chaotic attractor
 
 This software is for eduction purposes and is *free* forever (high school + universities).
 
-Pictures are suitable even for younger kids and can be used in any books for *free*. No parental guidance needed.
+Pictures are suitable even for younger kids and can be used in any book for *free*. No parental guidance needed.
