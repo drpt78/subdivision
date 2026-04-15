@@ -42,44 +42,8 @@ Chaotic attractor
 
 ![chaotic](./images/chaotic_0011.png)
 
-Rossler attractor
+# Three Dimensions Black And White displaying of attractors on standard colour monitors
 
-(2^6)^3 = 262,144 boxes
+[3d glasses needed](https://www.amazon.com/50-Pairs-Glasses-Anaglyph-Cardboard/dp/B07HK9Y6H3/):
 
-![rossler](./images/rossler_0005.png)
-
-(2^9)^3 = 134,217,728 boxes
-
-![rossler](./images/rossler_0008.png)
-
-Lorenz attractor
-
-(2^6)^3 = 262,144 boxes
-
-![lorenz](./images/lorenz_0005.png)
-
-(2^9)^3 = 134,217,728 boxes
-
-![lorenz](./images/lorenz_0008.png)
-
-Halvorsen attractor
-
-(2^6)^3 = 262,144 boxes
-
-![halvorsen](./images/halvorsen_0005.png)
-
-(2^9)^3 = 134,217,728 boxes
-
-![halvorsen](./images/halvorsen_0008.png)
-
-Or in 3D with [3d glasses needed](https://www.amazon.com/50-Pairs-Glasses-Anaglyph-Cardboard/dp/B07HK9Y6H3/):
-
-![halvorsen](./images/01.png)
-
-![halvorsen](./images/02.png)
-
-![halvorsen](./images/03.png)
-
-![halvorsen](./images/04.png)
-
-![halvorsen](./images/05.png)
+![3d attractor](./images/04.png)
