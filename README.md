@@ -34,10 +34,6 @@ Chaotic attractor
 
 ![chaotic](./images/chaotic_0005.png)
 
-(2^9)^3 = 134,217,728 boxes
-
-![chaotic](./images/chaotic_0008.png)
-
 (2^12)^3 = 68,719,476,736 boxes
 
 ![chaotic](./images/chaotic_0011.png)
