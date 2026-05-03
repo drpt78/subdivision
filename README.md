@@ -1,3 +1,10 @@
+# Subdivision Software is a software for displaying attractors of differential equations
+
+Coding: Peter Taraba (main contributor), Claude AI (since May 2, 2026)
+Fixing Bugs: Claude AI (since May 2, 2026)
+Help with installing OpenCL and making it work on Linux: Claude AI
+Program Management: Peter Taraba
+
 # [Subdivision algorithm](https://opus4.kobv.de/opus4-zib/frontdoor/deliver/index/docId/177/file/SC-95-11.pdf) using [PyOpencl](https://github.com/inducer/pyopencl)
 
 Unlike subdivision algorithm, this subdivides in all dimensions at the same time. So minor changes in comparison with [Approximation of box dimension of attractors using the subdivision algorithm](https://www.tandfonline.com/doi/abs/10.1080/14689360500141772). Now with int64 support, you can theoretically go to ((r=20)+1)*(dim=3)=63<64, which is quite furher than the dimension paper.
@@ -46,6 +53,8 @@ Chaotic attractor
 
 # P.T. education license
 
-This software is for eduction purposes and is *free* forever (high school + universities).
+This software is for eduction purposes and is *free* forever (high school + universities) \[as well as for Linux community around the world\].
 
 Pictures are suitable even for younger kids and can be used in any book for *free*. No parental guidance needed.
+
+If you are a Windows user, private company or goverment (if you engage in wars), please donate.

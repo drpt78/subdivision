@@ -69,21 +69,25 @@ mf = cl.mem_flags
 prg = cl.Program(ctx, open('kernels.cl', mode='rt').read()).build()
 
 knl = prg.dostep
-min_x = np.float32([-2.0, -30.0, -50.0, -4.0, -40.0])
-max_x = np.float32([2.0, 30.0, 50.0, 4.0, 40.0])
-min_y = np.float32([-2.0, -30.0, -50.0, -4.0, -40.0])
-max_y = np.float32([2.0, 30.0, 50.0, 4.0, 40.0])
-min_z = np.float32([-2.0, -30.0, -50.0, -4.0, -40.0])
-max_z = np.float32([2.0, 30.0, 50.0, 4.0, 40.0])
+min_x = np.float32([-2.0, -30.0, -50.0, -2.0, -40.0])
+max_x = np.float32([2.0, 30.0, 50.0, 2.0, 40.0])
+min_y = np.float32([-2.0, -30.0, -50.0, -2.0, -40.0])
+max_y = np.float32([2.0, 30.0, 50.0, 2.0, 40.0])
+min_z = np.float32([-2.0, -30.0, -50.0, -1.0, -40.0])
+max_z = np.float32([2.0, 30.0, 50.0, 3.0, 40.0])
 
 dminx = [-2.0, -15.0, -30.0, -2.0, -15.0]
 dmaxx = [2.0, 15.0, 30.0, 2.0, 15.0]
 dminy = [-2.0, -15.0, -30.0, -2.0, -15.0]
 dmaxy = [2.0, 15.0, 30.0, 2.0, 15.0]
-dminz = [-2.0, -15.0, -10.0, -2.0, -15.0]
-dmaxz = [2.0, 15.0, 40.0, 2.0, 15.0]
+dminz = [-2.0, -15.0, -10.0, -1.0, -15.0]
+dmaxz = [2.0, 15.0, 40.0, 3.0, 15.0]
 
-numSteps = [0, 100000, 100000, 100000, 100000]
+# numSteps=0 means discrete map (chaotic). For continuous systems, fewer steps
+# is much faster and still sufficient to classify box membership.
+# 100000 steps at dt=0.001 = 100s integration — far too long for Aizawa/Lorenz;
+# 5000 steps = 5s of simulation time, enough to determine attractor membership.
+numSteps = [0, 2000, 2000, 500, 2000]
 ss = [0, 0.001, 0.001, 0.001, 0.001]
 
 dim = 3

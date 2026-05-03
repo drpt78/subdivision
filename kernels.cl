@@ -151,9 +151,9 @@ __kernel void dostep(__global long *active, __global long *result,
     else
     {
         x1 = (int)((float)(x-min_x) / (max_x-min_x) * ((float)(1<<(r+1))));
-        y1 = (int)((float)(y-min_y) / (max_x-min_y) * ((float)(1<<(r+1))));
-        z1 = (int)((float)(z-min_z) / (max_x-min_z) * ((float)(1<<(r+1))));
-        if((x1>=0)&&(x1<(1<<(r+1)))&&(x1>=0)&&(x1<(1<<(r+1)))&&(x1>=0)&&(x1<(1<<(r+1))))
+        y1 = (int)((float)(y-min_y) / (max_y-min_y) * ((float)(1<<(r+1))));
+        z1 = (int)((float)(z-min_z) / (max_z-min_z) * ((float)(1<<(r+1))));
+        if((x1>=0)&&(x1<(1<<(r+1)))&&(y1>=0)&&(y1<(1<<(r+1)))&&(z1>=0)&&(z1<(1<<(r+1))))
         {
             result[gid] = x1 + y1 * (1<<(r+1)) + z1 * (1<<(r+1)) * (1<<(r+1));
         }
