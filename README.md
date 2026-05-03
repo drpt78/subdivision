@@ -1,9 +1,14 @@
 # Subdivision Software is a software for displaying attractors of differential equations
 
 Coding: Peter Taraba (main contributor), Claude AI (since May 2, 2026)
+
 Fixing Bugs: Claude AI (since May 2, 2026)
+
 Help with installing OpenCL and making it work on Linux: Claude AI
+
 Program Management: Peter Taraba
+
+
 
 # [Subdivision algorithm](https://opus4.kobv.de/opus4-zib/frontdoor/deliver/index/docId/177/file/SC-95-11.pdf) using [PyOpencl](https://github.com/inducer/pyopencl)
 
