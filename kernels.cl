@@ -1,37 +1,3 @@
-void doRungeKuttaStep(float ss, float *x, float *y, float *z, void (*derivative(float, float, float, float*, float*, float*)))
-{
-    float dx1, dy1, dz1;
-    derivative(*x, *y, *z, &dx1, &dy1, &dz1);
-
-    float x2, y2, z2;
-    x2 = *x + 0.5f * ss * dx1;
-    y2 = *y + 0.5f * ss * dy1;
-    z2 = *z + 0.5f * ss * dz1;
-
-    float dx2, dy2, dz2;
-    derivative(x2, y2, z2, &dx2, &dy2, &dz2);
-
-    float x3, y3, z3;
-    x3 = *x + 0.5f * ss * dx2;
-    y3 = *y + 0.5f * ss * dy2;
-    z3 = *z + 0.5f * ss * dz2;
-
-    float dx3, dy3, dz3;
-    derivative(x3, y3, z3, &dx3, &dy3, &dz3);
-
-    float x4, y4, z4;
-    x4 = *x + ss * dx3;
-    y4 = *y + ss * dy3;
-    z4 = *z + ss * dz3;
-
-    float dx4, dy4, dz4;
-    derivative(x4, y4, z4, &dx4, &dy4, &dz4);
-
-    *x = *x + ss * (dx1 + 2.0f * dx2 + 2.0f * dx3 + dx4) / 6.0f;
-    *y = *y + ss * (dy1 + 2.0f * dy2 + 2.0f * dy3 + dy4) / 6.0f;
-    *z = *z + ss * (dz1 + 2.0f * dz2 + 2.0f * dz3 + dz4) / 6.0f;
-}
-
 inline bool isOutside(float min_x, float max_x,
     float min_y, float max_y,
     float min_z, float max_z,
@@ -85,31 +51,48 @@ void derivativeHalvorsen(float x, float y, float z, float *dx, float *dy, float 
     *dz = (-1.89f*z-4.0f*x-4.0*y-x*x);
 }
 
-void dostepContinuous(float *x, float *y, float *z,
-                      float min_x, float max_x,
-                      float min_y, float max_y,
-                      float min_z, float max_z,
-                      int numSteps, float ss,
-                      void (*derivative(float, float, float, float*, float*, float*)))
-{
-    float nx, ny, nz;
-
-    nx = *x;
-    ny = *y;
-    nz = *z;
-    for(int i=0;i<numSteps;i++)
-    {
-        doRungeKuttaStep(ss, &nx, &ny, &nz, derivative);
-        if(isOutside(min_x, max_x, min_y, max_y, min_z, max_z, nx, ny, nz))
-        {
-            break;
-        }
-    }
-
-    *x = nx;
-    *y = ny;
-    *z = nz;
+// Macro that expands to a full dostepContinuous for a specific derivative.
+// OpenCL does not allow function pointers, so we template via macro instead.
+#define DEFINE_DOSTEP(NAME, DERIVATIVE)                                         \
+void dostepContinuous_##NAME(float *x, float *y, float *z,                     \
+                      float min_x, float max_x,                                 \
+                      float min_y, float max_y,                                 \
+                      float min_z, float max_z,                                 \
+                      int numSteps, float ss)                                   \
+{                                                                               \
+    float nx = *x, ny = *y, nz = *z;                                           \
+    for(int i = 0; i < numSteps; i++)                                           \
+    {                                                                           \
+        float dx1, dy1, dz1;                                                    \
+        DERIVATIVE(nx, ny, nz, &dx1, &dy1, &dz1);                              \
+        float x2 = nx + 0.5f * ss * dx1;                                       \
+        float y2 = ny + 0.5f * ss * dy1;                                       \
+        float z2 = nz + 0.5f * ss * dz1;                                       \
+        float dx2, dy2, dz2;                                                    \
+        DERIVATIVE(x2, y2, z2, &dx2, &dy2, &dz2);                             \
+        float x3 = nx + 0.5f * ss * dx2;                                       \
+        float y3 = ny + 0.5f * ss * dy2;                                       \
+        float z3 = nz + 0.5f * ss * dz2;                                       \
+        float dx3, dy3, dz3;                                                    \
+        DERIVATIVE(x3, y3, z3, &dx3, &dy3, &dz3);                             \
+        float x4 = nx + ss * dx3;                                               \
+        float y4 = ny + ss * dy3;                                               \
+        float z4 = nz + ss * dz3;                                               \
+        float dx4, dy4, dz4;                                                    \
+        DERIVATIVE(x4, y4, z4, &dx4, &dy4, &dz4);                             \
+        nx = nx + ss * (dx1 + 2.0f * dx2 + 2.0f * dx3 + dx4) / 6.0f;         \
+        ny = ny + ss * (dy1 + 2.0f * dy2 + 2.0f * dy3 + dy4) / 6.0f;         \
+        nz = nz + ss * (dz1 + 2.0f * dz2 + 2.0f * dz3 + dz4) / 6.0f;         \
+        if(isOutside(min_x, max_x, min_y, max_y, min_z, max_z, nx, ny, nz))   \
+            break;                                                               \
+    }                                                                           \
+    *x = nx; *y = ny; *z = nz;                                                 \
 }
+
+DEFINE_DOSTEP(rossler,   derivativeRossler)
+DEFINE_DOSTEP(lorenz,    derivativeLorenz)
+DEFINE_DOSTEP(aizawa,    derivativeAizawa)
+DEFINE_DOSTEP(halvorsen, derivativeHalvorsen)
 
 enum whichSystem { sys_chaotic = 0, sys_rossler = 1, sys_lorenz = 2, sys_aizawa = 3, sys_halvorsen = 4};
 
@@ -146,16 +129,16 @@ __kernel void dostep(__global long *active, __global long *result,
             chaotic(&x, &y, &z);
             break;
         case sys_rossler:
-            dostepContinuous(&x, &y, &z, min_x, max_x, min_y, max_y, min_z, max_z, numSteps, ss, &derivativeRossler);
+            dostepContinuous_rossler(&x, &y, &z, min_x, max_x, min_y, max_y, min_z, max_z, numSteps, ss);
             break;
         case sys_lorenz:
-            dostepContinuous(&x, &y, &z, min_x, max_x, min_y, max_y, min_z, max_z, numSteps, ss, &derivativeLorenz);
+            dostepContinuous_lorenz(&x, &y, &z, min_x, max_x, min_y, max_y, min_z, max_z, numSteps, ss);
             break;
         case sys_aizawa:
-            dostepContinuous(&x, &y, &z, min_x, max_x, min_y, max_y, min_z, max_z, numSteps, ss, &derivativeAizawa);
+            dostepContinuous_aizawa(&x, &y, &z, min_x, max_x, min_y, max_y, min_z, max_z, numSteps, ss);
             break;
         case sys_halvorsen:
-            dostepContinuous(&x, &y, &z, min_x, max_x, min_y, max_y, min_z, max_z, numSteps, ss, &derivativeHalvorsen);
+            dostepContinuous_halvorsen(&x, &y, &z, min_x, max_x, min_y, max_y, min_z, max_z, numSteps, ss);
             break;
         default:
             break;

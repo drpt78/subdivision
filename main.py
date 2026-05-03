@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import math
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
 from display import DispApp
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 
 # code for this function came from https://www.pythonpool.com/matplotlib-draw-rectangle/
 def addtograph(ax,x1,x2,y1,y2,z1,z2):
@@ -62,6 +62,7 @@ else:
 
 os.environ["PYOPENCL_CTX"] = "0"
 ctx = cl.create_some_context()
+print(f"Using context: {ctx.devices[0].name}")
 queue = cl.CommandQueue(ctx)
 mf = cl.mem_flags
 
