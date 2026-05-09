@@ -64,4 +64,4 @@ This software is for eduction purposes and is *free* forever (high school + univ
 
 Pictures are suitable even for younger kids and can be used in any book for *free*. No parental guidance needed.
 
-If you are a Windows user, private company or goverment (if you engage in wars), please donate.
+If you are a Windows user, private company or goverment (if you engage in wars), please donate instead.
