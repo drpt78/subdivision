@@ -8,6 +8,8 @@ Help with installing OpenCL and making it work on Linux: Claude AI
 
 Program Management: Peter Taraba
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/drpt78/subdivision)
+
 
 
 # [Subdivision algorithm](https://opus4.kobv.de/opus4-zib/frontdoor/deliver/index/docId/177/file/SC-95-11.pdf) using [PyOpencl](https://github.com/inducer/pyopencl)
